@@ -10,14 +10,24 @@
 
 require_relative "purchase.rb"
 
-p1 = Product.new '01', 'Martillo', 50
+p1 = Product.new '01', 'Martillo', 40
 p2 = Product.new '02', 'Clavos x 100', 10
 
 p = Purchase.new
 p.add p1
+p.add p1
+p.add p1
+p.add p1
+p.add p1
+p.add p1
+p.add p1
+p.add p1
+p.add p1
+p.add p1
 p.add p2
 
-puts p.total
+
+puts "Total sin descuentos:", p.total
 
 # Descuento de 10% en tu compra si llevás algún martillo!
 #p.apply_discount do |purchase|
@@ -26,8 +36,30 @@ puts p.total
 #end
 
 p.apply_discount do |purchase|
-  purchase.total = 10
+  purchase.total_prize *= 0.8 if purchase.products.size > 10
 end
 
-puts p.total
+puts "Total con descuento:", p.total
+
+p.apply_discount do |purchase|
+  product_prices = Hash.new
+  product_counts = Hash.new( 0 )
+
+  purchase.products.each do |product|
+    product_counts[product.code] += 1
+    product_prices[product.code] ||= product.prize
+  end
+
+  product_counts.each do |k, v|
+    if v > 3
+      discounted_items = v.div 3
+      purchase.total_prize -= discounted_items * product_prices[k]
+    end
+  end
+
+  
+end
+
+puts "Total con descuento 2:", p.total
+    
 

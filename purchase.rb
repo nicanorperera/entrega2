@@ -14,11 +14,11 @@ require_relative "product.rb"
 class Purchase
 
   attr_reader :products
-  attr_accessor :total
+  attr_accessor :total_prize
 
   def initialize
     @products = []
-    @total = 0
+    @total_prize = 0
     @discounts = []
   end
 
@@ -31,11 +31,11 @@ class Purchase
   end
 
   def total
-    @total = @products.map {|p| p.prize}.inject :+
+    @total_prize = @products.map {|p| p.prize }.inject :+
     @discounts.each do |discount|
       discount.call self
     end
-    @total
+    @total_prize
   end
 
   def apply_discount(&block)
