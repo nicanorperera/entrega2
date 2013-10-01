@@ -4,12 +4,8 @@
 #   Calcular el total (#total)
 #   Aplicar descuentos (#apply_discount)
 #   Los descuentos no son definidos estáticamente sino que pueden crearse y aplicarse dinámicamente. 
-#   Ejemplos de descuentos son:
-#     Si la lista de productos tiene más de 10 productos, se cobra el 20% menos
-#     Si la lista de productos tiene más de 3 productos iguales, cada 3 paga 2
 
-
-require_relative "product.rb"
+Product = Struct.new(:code, :name, :prize)
 
 class Purchase
 
@@ -30,16 +26,26 @@ class Purchase
     @products.delete(product)
   end
 
+  # Los descuentos se aplican dinamicamente cada vez que se llama a este metodo.
   def total
-    @total_prize = @products.map {|p| p.prize }.inject :+
+    # Calculo el total sin descuentos
+    self.total_prize = @products.map {|p| p.prize }.inject :+
+
+    # Aplico todos los descuentos dinamicamente
     @discounts.each do |discount|
       discount.call self
     end
-    @total_prize
+
+    self.total_prize # Retorno el precio final
   end
 
   def apply_discount(&block)
     @discounts << block
+  end
+
+  # Agregado para poder eliminar descuentos.
+  def reset_discounts
+    @discounts = []
   end
   
 end

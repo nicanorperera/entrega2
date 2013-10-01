@@ -1,4 +1,4 @@
-#Un producto tiene un código, un nombre y un precio. Creá una clase llamada Purchase que sea capaz de:
+# Un producto tiene un código, un nombre y un precio. Creá una clase llamada Purchase que sea capaz de:
 
 #    Agregar un nuevo producto (#add)
 #    Eliminar un nuevo producto (#delete)
@@ -7,42 +7,38 @@
 #        Si la lista de productos tiene más de 10 productos, se cobra el 20% menos
 #        Si la lista de productos tiene más de 3 productos iguales, cada 3 paga 2
 
-
 require_relative "purchase.rb"
 
-p1 = Product.new '01', 'Martillo', 40
-p2 = Product.new '02', 'Clavos x 100', 10
+p1 = Product.new '01', 'Martillo', 80
+p2 = Product.new '02', 'Clavos x 100', 50
 
 p = Purchase.new
-p.add p1
-p.add p1
-p.add p1
-p.add p1
-p.add p1
-p.add p1
-p.add p1
-p.add p1
-p.add p1
-p.add p1
-p.add p2
+10.times do 
+  p.add p1
+end
 
+4.times do
+  p.add p2
+end
 
 puts "Total sin descuentos:", p.total
 
-# Descuento de 10% en tu compra si llevás algún martillo!
-#p.apply_discount do |purchase|
-#  hammers = purchase.products.collect { |product| product.code == '01'  }
-#  purchase.total -= purchase.total * 0.1 if hammers.any?
-#end
-
+# We apply the first discount: "Si la lista de productos tiene más de 10 productos, se cobra el 20% menos"
 p.apply_discount do |purchase|
   purchase.total_prize *= 0.8 if purchase.products.size > 10
 end
 
-puts "Total con descuento:", p.total
+p.reset_discounts
 
+# Or it can be applied like this:
+veinte_por_ciento = -> (purchase) { purchase.total_prize *= 0.8 if purchase.products.size > 10 }
+p.apply_discount &veinte_por_ciento 
+
+puts "Total con descuento de veinte por ciento:", p.total
+
+# We apply second discount: "Si la lista de productos tiene más de 3 productos iguales, cada 3 paga 2"
 p.apply_discount do |purchase|
-  product_prices = Hash.new
+  product_prices = {}
   product_counts = Hash.new( 0 )
 
   purchase.products.each do |product|
@@ -56,10 +52,15 @@ p.apply_discount do |purchase|
       purchase.total_prize -= discounted_items * product_prices[k]
     end
   end
-
   
 end
 
-puts "Total con descuento 2:", p.total
-    
+puts "Total con descuento 3x2:", p.total    
 
+p.reset_discounts
+
+puts "Total sin descuentos:", p.total
+
+p.apply_discount &veinte_por_ciento 
+
+puts "Total con descuento de veinte_por_ciento:", p.total

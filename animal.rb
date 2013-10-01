@@ -34,7 +34,7 @@ module Desplazador
 end
 
 #En el reino animal hay diferentes grupos de animales, entre los que encontramos, por ejemplo, a los mamíferos, las aves, los reptiles y los anfibios y los peces
-class Animal; end
+Animal = Class.new
 
 # Entre los mamíferos encontramos al hombre, que es capaz de caminar, nadar, y hablar.
 # Al perro que es capaz de caminar y ladrar.
@@ -90,7 +90,7 @@ end
 # Entre los reptiles encontramos al cocodrilo, que es capaz de caminar y nadar, 
 # La boa, que es capaz de desplazarse y ejercer presión (constricción) y 
 # La cobra que es capaz de desplazarse y morder
-class Reptil < Animal; end
+Reptil = Class.new(Animal)
 
 class Cocodrilo < Reptil
   include Caminador
@@ -111,7 +111,8 @@ class Cobra < Reptil
   end
 end
 # Entre los anfibios encontramos a los sapos que son capaces de saltar y nadar.
-class Anfibio < Animal; end
+Anfibio = Class.new(Animal)
+
 class Sapo < Anfibio
   include Nadador
   def saltar
@@ -124,4 +125,4 @@ class Pez < Animal
   include Nadador
 end
 
-class Tiburon < Pez; end # Tiburon < Mamifero 
+Tiburon = Class.new(Pez)
