@@ -7,6 +7,7 @@ p1 = Product.new '01', 'Martillo', 80
 p2 = Product.new '02', 'Clavos x 100', 50
 
 p = Purchase.new
+
 10.times do 
   p.add p1
 end

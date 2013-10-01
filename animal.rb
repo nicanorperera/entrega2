@@ -1,57 +1,44 @@
 # Comando para ejecutar casos de prueba: `ruby animal.rb`
 
 module Caminador
-
   def caminar
     puts "Estoy caminando y soy un #{self}"
   end
-
 end
 
-
 module Nadador
-
   def nadar
     puts "Estoy nadando y soy un #{self}"
   end
-
 end
 
-
 module Volador
-
   def volar
     puts "Estoy volando y soy un #{self}"
   end
-
 end
 
-
 module Desplazador
-  
   def desplazar
     puts "Estoy desplazandome y soy un #{self}"
   end
-
 end
 
-#En el reino animal hay diferentes grupos de animales, entre los que encontramos, por ejemplo, a los mamíferos, las aves, los reptiles y los anfibios y los peces
+# En el reino animal hay diferentes grupos de animales, entre los que encontramos, por ejemplo, 
+# a los mamíferos, las aves, los reptiles y los anfibios y los peces
 Animal = Class.new
 
 # Entre los mamíferos encontramos al hombre, que es capaz de caminar, nadar, y hablar.
 # Al perro que es capaz de caminar y ladrar.
 # Y a la ballena, que es capaz de nadar.
 class Mamifero < Animal
-
   def amamantar 
     puts "Estoy amamantando a mi cria y soy un #{self}"
   end
-
 end
 
 
 class Hombre < Mamifero
-
   include Caminador
   include Nadador
 
@@ -62,13 +49,11 @@ end
 
 
 class Perro < Mamifero
-  
   include Caminador
 
   def ladrar 
     puts "Estoy hablando y soy un #{self}"
   end
-
 end
 
 class Ballena < Mamifero
@@ -112,6 +97,7 @@ class Cobra < Reptil
     puts "Estoy matando a mi presa mediante mi mordedura venenoza y soy un #{self}"
   end
 end
+
 # Entre los anfibios encontramos a los sapos que son capaces de saltar y nadar.
 Anfibio = Class.new(Animal)
 
@@ -130,18 +116,22 @@ end
 Tiburon = Class.new(Pez)
 
 # Casos de Prueba:
-#* Instanciar un hombre y pedirle que camine
-h1 = Hombre.new
-h1.caminar
-#* Instanciar un hombre y pedirle que hable
-h2 = Hombre.new
-h2.hablar
-#* Instanciar un sapo y pedirle que salte
+
+# Instanciar un hombre y pedirle que camine
+h = Hombre.new
+h.caminar
+
+# Instanciar un hombre y pedirle que hable
+h.hablar
+
+# Instanciar un sapo y pedirle que salte
 s = Sapo.new
 s.saltar
-#* Instanciar un águila y pedirle que vuele
+
+# Instanciar un águila y pedirle que vuele
 a = Aguila.new
 a.volar
-#* Instanciar un perro y pedirle que vuele (Debe fallar)
+
+# Instanciar un perro y pedirle que vuele (Debe fallar)
 p = Perro.new
 p.volar
