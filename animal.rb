@@ -1,3 +1,5 @@
+# Comando para ejecutar casos de prueba: `ruby animal.rb`
+
 module Caminador
 
   def caminar
@@ -126,3 +128,20 @@ class Pez < Animal
 end
 
 Tiburon = Class.new(Pez)
+
+# Casos de Prueba:
+#* Instanciar un hombre y pedirle que camine
+h1 = Hombre.new
+h1.caminar
+#* Instanciar un hombre y pedirle que hable
+h2 = Hombre.new
+h2.hablar
+#* Instanciar un sapo y pedirle que salte
+s = Sapo.new
+s.saltar
+#* Instanciar un águila y pedirle que vuele
+a = Aguila.new
+a.volar
+#* Instanciar un perro y pedirle que vuele (Debe fallar)
+p = Perro.new
+p.volar

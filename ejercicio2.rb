@@ -1,11 +1,5 @@
-# Un producto tiene un código, un nombre y un precio. Creá una clase llamada Purchase que sea capaz de:
-
-#    Agregar un nuevo producto (#add)
-#    Eliminar un nuevo producto (#delete)
-#    Calcular el total (#total)
-#    Aplicar descuentos (#apply_discount): Los descuentos no son definidos estáticamente sino que pueden crearse y aplicarse dinámicamente. Ejemplos de descuentos son:
-#        Si la lista de productos tiene más de 10 productos, se cobra el 20% menos
-#        Si la lista de productos tiene más de 3 productos iguales, cada 3 paga 2
+# Comando para ejecutar: `ruby ejercicio2.rb`
+# Inicializa una compra (Purchase) y aplica los descuentos de prueba pedidos.
 
 require_relative "purchase.rb"
 
